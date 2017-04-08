@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "name": "spfx-angular-poc-client-side-solution",
+    "id": "c5bf3287-9b76-435b-a0b7-ccf10321b311",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "solution/spfx-angular-poc.sppkg"
+  }
+}

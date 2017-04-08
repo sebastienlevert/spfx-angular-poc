@@ -1,0 +1,19 @@
+{
+  "entries": [
+    {
+      "entry": "./lib/webparts/angularComponent/AngularComponentWebPart.js",
+      "manifest": "./src/webparts/angularComponent/AngularComponentWebPart.manifest.json",
+      "outputPath": "./dist/angular-component.bundle.js"
+    },
+    {
+      "entry": "./lib/webparts/simpleAngularWebPart/SimpleAngularWebPartWebPart.js",
+      "manifest": "./src/webparts/simpleAngularWebPart/SimpleAngularWebPartWebPart.manifest.json",
+      "outputPath": "./dist/simple-angular-web-part.bundle.js"
+    }
+  ],
+  "externals": {},
+  "localizedResources": {
+    "angularComponentStrings": "webparts/angularComponent/loc/{locale}.js",
+    "simpleAngularWebPartStrings": "webparts/simpleAngularWebPart/loc/{locale}.js"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.0.1-dk4.12",
+    "libraryName": "spfx-angular-poc",
+    "libraryId": "c5bf3287-9b76-435b-a0b7-ccf10321b311",
+    "framework": "none"
+  }
+}

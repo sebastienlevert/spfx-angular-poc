@@ -1,0 +1,26 @@
+{
+  "$schema": "../../../node_modules/@microsoft/sp-module-interfaces/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
+
+  "id": "2d5ec0c7-25bf-4a6f-93f5-9530422b4199",
+  "alias": "AngularComponentWebPart",
+  "componentType": "WebPart",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+
+  /**
+   * This property should only be set to true if it is certain that the webpart does not
+   *  allow arbitrary scripts to be called
+   */
+  "safeWithCustomScriptDisabled": false,
+
+  "preconfiguredEntries": [{
+    "groupId": "2d5ec0c7-25bf-4a6f-93f5-9530422b4199",
+    "group": { "default": "Under Development" },
+    "title": { "default": "AngularComponent" },
+    "description": { "default": "AngularComponent description" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "description": "AngularComponent"
+    }
+  }]
+}
