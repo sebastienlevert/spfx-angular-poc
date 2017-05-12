@@ -13,7 +13,7 @@ import { ConfigurationService } from "./../../services/configuration.service";
 @Component({
   selector: `sites-classic-form`,
   template: require("./templates/sites.form.template.html") as string,
-  providers: [SitesService, ConfigurationService]
+  providers: [SitesService]
 })
 export default class SitesClassicFormComponent implements OnInit {
   @ViewChild('siteTitle') siteTitleElement: ElementRef;

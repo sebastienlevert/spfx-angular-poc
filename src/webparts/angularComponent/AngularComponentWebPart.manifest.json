@@ -16,11 +16,11 @@
   "preconfiguredEntries": [{
     "groupId": "2d5ec0c7-25bf-4a6f-93f5-9530422b4199",
     "group": { "default": "Under Development" },
-    "title": { "default": "AngularComponent" },
-    "description": { "default": "AngularComponent description" },
+    "title": { "default": "Angular Webpart" },
+    "description": { "default": "Angular Webpart using SharePoint Framework" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "AngularComponent"
+      "description": "Angular Webpart using SharePoint Framework"
     }
   }]
 }

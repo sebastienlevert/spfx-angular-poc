@@ -6,6 +6,7 @@ import {
 } from '@microsoft/sp-webpart-base';
 import { escape } from '@microsoft/sp-lodash-subset';
 import BaseAngularWebPart from './../../core/BaseAngularWebPart';
+import { APP_INITIALIZER } from '@angular/core';
 
 import styles from './AngularComponent.module.scss';
 import * as strings from 'angularComponentStrings';
@@ -17,6 +18,7 @@ import SitesFormComponent from './app/components/sites/sites.form.component';
 import SitesViewComponent from './app/components/sites/sites.view.component';
 import { DialogComponent } from './app/components/sites/dialog.component';
 import { appRoutes } from "./app/app.routes"
+import { ConfigurationService } from "./app/services/configuration.service";
 
 export default class AngularComponentWebPart extends BaseAngularWebPart<IAngularComponentWebPartProps> {
 
@@ -33,14 +35,19 @@ export default class AngularComponentWebPart extends BaseAngularWebPart<IAngular
       SitesViewComponent];
   }
 
-  protected get routes(): any {
-    return appRoutes;
+  protected get providers(): any {
+    return [
+      ConfigurationService,
+      { provide: APP_INITIALIZER, useFactory: (configurationService: ConfigurationService) => () => configurationService.load({
+        functionUrl: this.properties.functionUrl,
+        functionKey: this.properties.functionKey,
+        description: this.properties.description
+      }), deps: [ConfigurationService], multi: true }
+    ];
   }
 
-  public onBeforeSerialize() {
-    this.properties.description = this.rootComponent.description;
-    this.properties.functionUrl = this.rootComponent.functionUrl;
-    this.properties.functionKey = this.rootComponent.functionKey;
+  protected get routes(): any {
+    return appRoutes;
   }
   
   public onPropertyChange(propertyPath: string, newValue: any): void {
@@ -74,15 +81,20 @@ export default class AngularComponentWebPart extends BaseAngularWebPart<IAngular
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: "Angular Webpart"
           },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: "General Configuration",
               groupFields: [
                 PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
-                }),
+                  label: "Home Title"
+                })
+              ]
+            },
+            {
+              groupName: "API Configuration",
+              groupFields: [
                 PropertyPaneTextField('functionUrl', {
                   label: "Function URL"
                 }),

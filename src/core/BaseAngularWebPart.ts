@@ -60,6 +60,13 @@ export default class BaseAngularWebPart<TProperties>
   protected get routes(): any {
     throw new Error("This API needs to be overridden in the web part class");
   }
+  
+  /**
+   * Array of class references for the NgModule declarations.
+   */
+  protected get providers(): any {
+    throw new Error("This API needs to be overridden in the web part class");
+  }
 
   /**
    * Class reference of the root component.
@@ -89,8 +96,10 @@ export default class BaseAngularWebPart<TProperties>
    */
   public render(): void {
     // @todo: most likely we need to make this width:100%
-    this.domElement.innerHTML = `<angular-${this.context.instanceId} />`;
-    this._bootStrapModule();
+    //if (this.renderedOnce === false) {
+      this.domElement.innerHTML = `<angular-${this.context.instanceId} />`;
+      this._bootStrapModule();
+    //}
   }
 
   /**
@@ -122,6 +131,7 @@ export default class BaseAngularWebPart<TProperties>
     const component: any = this.rootComponentType.getComponent(this.context.instanceId);
     const declarations = this.appDeclarationTypes.concat(component);
     const routes = this.routes;
+    const providers = this.providers;
     const webPart = this;
     /**
     * Our goal is to define a single module class definition to be instantiated for each
@@ -144,7 +154,8 @@ export default class BaseAngularWebPart<TProperties>
           imports: [BrowserModule, FormsModule, HttpModule, routes],
           declarations: declarations,
           bootstrap: [component],
-          exports: [RouterModule]
+          exports: [RouterModule],
+          providers: providers
         }),
 
         Reflect.metadata('design:paramtypes', [ApplicationRef, NgZone]) // This allows Angular2's DI to inject dependencies

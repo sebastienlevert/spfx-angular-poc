@@ -19,7 +19,7 @@ export class SitesService {
       url: url
     };
 
-    let functionUrl = this.configurationService.functionUrl + "?code=" + this.configurationService.functionKey;//https://sebastienlevert-functions.azurewebsites.net/api/PS-Create-ModernSite?code=CK0RapJSHYtYiM2sGEoRtWKoZnbzCaMwhfsSNk04a3G10tgyYMafSA==";
+    let functionUrl = this.configurationService.functionUrl + "?code=" + this.configurationService.functionKey;
     return this.http.post(functionUrl, site, options)
                     .map(this.extractData)
                     .catch(this.handleError);
