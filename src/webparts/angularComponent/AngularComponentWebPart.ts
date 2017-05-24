@@ -1,4 +1,8 @@
-import { Version } from '@microsoft/sp-core-library';
+import { 
+  Version,
+  Environment,
+  EnvironmentType 
+} from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
@@ -18,7 +22,8 @@ import SitesFormComponent from './app/components/sites/sites.form.component';
 import SitesViewComponent from './app/components/sites/sites.view.component';
 import { DialogComponent } from './app/components/sites/dialog.component';
 import { appRoutes } from "./app/app.routes"
-import { ConfigurationService } from "./app/services/configuration.service";
+import { ConfigurationService } from "./app/services/ConfigurationService";
+import { SitesService, MockSitesService } from "./app/services";
 
 export default class AngularComponentWebPart extends BaseAngularWebPart<IAngularComponentWebPartProps> {
 
@@ -36,14 +41,31 @@ export default class AngularComponentWebPart extends BaseAngularWebPart<IAngular
   }
 
   protected get providers(): any {
-    return [
-      ConfigurationService,
-      { provide: APP_INITIALIZER, useFactory: (configurationService: ConfigurationService) => () => configurationService.load({
-        functionUrl: this.properties.functionUrl,
-        functionKey: this.properties.functionKey,
-        description: this.properties.description
-      }), deps: [ConfigurationService], multi: true }
-    ];
+    if (Environment.type === EnvironmentType.Local) {
+      return [
+        ConfigurationService,
+        { provide: SitesService, useClass: MockSitesService },
+        { provide: APP_INITIALIZER, useFactory: (configurationService: ConfigurationService) => () => configurationService.load({
+          functionUrl: this.properties.functionUrl,
+          functionKey: this.properties.functionKey,
+          description: this.properties.description,
+          styles: styles
+        }), deps: [ConfigurationService], multi: true }
+      ];
+    } else if (Environment.type == EnvironmentType.SharePoint || Environment.type == EnvironmentType.ClassicSharePoint) {
+      return [
+        ConfigurationService,
+        { provide: SitesService, useClass: SitesService },
+        { provide: APP_INITIALIZER, useFactory: (configurationService: ConfigurationService) => () => configurationService.load({
+          functionUrl: this.properties.functionUrl,
+          functionKey: this.properties.functionKey,
+          description: this.properties.description,
+          styles: styles
+        }), deps: [ConfigurationService], multi: true }
+      ];
+    }
+
+    
   }
 
   protected get routes(): any {

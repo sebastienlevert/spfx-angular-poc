@@ -4,16 +4,15 @@ import { autobind } from 'office-ui-fabric-react/lib/Utilities';
 import { Component, Input, OnInit, ElementRef, Inject, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { TextField } from "office-ui-fabric-react/lib/TextField";
-import { PrimaryButton, Button, ButtonType } from "office-ui-fabric-react/lib/Button";
+import { PrimaryButton, DefaultButton, Button, ButtonType } from "office-ui-fabric-react/lib/Button";
 import { Toggle } from "office-ui-fabric-react/lib/Toggle";
 import { DialogComponent } from "./dialog.component";
-import { SitesService } from "./../../services/sites.service";
-import { ConfigurationService } from "./../../services/configuration.service";
+import { SitesService } from "./../../services";
+import { ISiteCreationInformation } from "./../../models";
 
 @Component({
-  selector: `sites-classic-form`,
-  template: require("./templates/sites.form.template.html") as string,
-  providers: [SitesService]
+  selector: "sites-classic-form",
+  template: require("./templates/sites.form.template.html") as string
 })
 export default class SitesClassicFormComponent implements OnInit {
   @ViewChild('siteTitle') siteTitleElement: ElementRef;
@@ -46,9 +45,14 @@ export default class SitesClassicFormComponent implements OnInit {
     ReactDOM.render(<TextField label='Site URL' required={ true } onChanged={ this._onSiteUrlChanged } />, this.siteUrlElement.nativeElement);
     ReactDOM.render(<Toggle defaultChecked={ true } label='Site is Private' onText='Yes' offText='No' onChanged={ this._onSitePrivateChanged } />, this.sitePrivateElement.nativeElement);
     ReactDOM.render(
-      <div>
-        <Button buttonType={ ButtonType.primary } text='Create Site' onClick={ this._onCreateSite } />
-        <Button text='Cancel' onClick={ this._onCancel } />
+      <div className="ms-Grid">
+        <div className="ms-Grid-row ms-u-textAlignRight">
+          <div className="ms-Grid-col ms-u-hiddenMdDown ms-u-lg8" />
+          <div className="ms-Grid-col ms-u-sm6 ms-u-md6 ms-u-lg4">
+            <PrimaryButton onClick={ this._onCreateSite }>Create Site</PrimaryButton>
+            <DefaultButton onClick={ this._onCancel }>Cancel</DefaultButton>
+          </div>
+        </div>
       </div>, this.buttonSectionElement.nativeElement);
   }
 
@@ -57,9 +61,10 @@ export default class SitesClassicFormComponent implements OnInit {
     this.siteTitle = "";
     this.siteUrl = "";
   }
+  
   @autobind
   private _onCreateSite() {
-    let siteInformation: any = {
+    let siteInformation: ISiteCreationInformation = {
       title: this.siteTitle,
       description: this.siteDescription,
       url: this.siteUrl,
@@ -68,7 +73,7 @@ export default class SitesClassicFormComponent implements OnInit {
 
     this.dialogComponent.toggle();
     this.sitesService
-      .createSite(this.siteTitle, this.siteDescription, this.siteUrl)
+      .createSite(siteInformation)
       .subscribe(
         site => {
           this.dialogComponent.toggle();

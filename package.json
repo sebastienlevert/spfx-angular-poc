@@ -15,8 +15,9 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "@angular/upgrade": "^4.0.0",
-    "@microsoft/sp-core-library": "1.0.0-dk4.12",
-    "@microsoft/sp-webpart-base": "1.0.0-dk4.12",
+    "@microsoft/sp-client-base": "~1.0.0",
+    "@microsoft/sp-core-library": "~1.0.0",
+    "@microsoft/sp-webpart-base": "~1.0.0",
     "@types/react": "0.14.46",
     "@types/react-addons-shallow-compare": "0.14.17",
     "@types/react-addons-test-utils": "0.14.15",
@@ -25,6 +26,7 @@
     "@types/webpack-env": ">=1.12.1 <1.14.0",
     "core-js": "^2.4.1",
     "office-ui-fabric-js": "^1.4.0",
+    "office-ui-fabric-react": "^2.32.0",
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "reflect-metadata": "^0.1.9",
@@ -34,12 +36,13 @@
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@microsoft/sp-build-web": "1.0.1-dk4.12",
-    "@microsoft/sp-module-interfaces": "1.0.0-dk4.12",
-    "@microsoft/sp-webpart-workbench": "1.0.0-dk4.12",
-    "gulp": "~3.9.1",
+    "@microsoft/sp-build-web": "~1.0.1",
+    "@microsoft/sp-module-interfaces": "~1.0.0",
+    "@microsoft/sp-webpart-workbench": "~1.0.0",
     "@types/chai": ">=3.4.34 <3.6.0",
-    "@types/mocha": ">=2.2.33 <2.6.0"
+    "@types/core-js": "^0.9.41",
+    "@types/mocha": ">=2.2.33 <2.6.0",
+    "gulp": "~3.9.1"
   },
   "scripts": {
     "build": "gulp bundle",

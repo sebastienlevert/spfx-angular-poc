@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { ConfigurationService } from "./../../services/configuration.service";
+import { ConfigurationService } from "./../../services/ConfigurationService";
 
 @Component({
   selector: "sites-home",
