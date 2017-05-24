@@ -31,7 +31,7 @@ $Site = @{
     title = $group.DisplayName
     description = $group.Description
     email = $group.Mail
-    url = "$env:RootSiteCollectionUrl/_layouts/15/groupstatus.aspx?id=$($group.GroupId)&target=site"
+    url = "$($env:TenantUrl)/_layouts/15/groupstatus.aspx?id=$($group.GroupId)&target=site"
 }
 
 $ResultJson = $Site | ConvertTo-Json -Depth 5

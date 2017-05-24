@@ -6,12 +6,12 @@ export class ConfigurationService {
   public functionUrl: string = "";
   public functionKey: string = "";
   public description: string = "";
-  public styles: any = "";
+  public styles: any = null;
 
   public load(data: IApplicationConfigurationProps) {
-    this.functionUrl = data.functionUrl;
-    this.functionKey = data.functionKey;
-    this.description = data.description;
+    this.functionUrl = data.functionUrl ? data.functionUrl : "";
+    this.functionKey = data.functionKey ? data.functionKey : "";
+    this.description = data.description ? data.description : "";
     this.styles = data.styles;
   }
 
