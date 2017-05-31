@@ -46,6 +46,7 @@ export default class AngularComponentWebPart extends BaseAngularWebPart<IAngular
         ConfigurationService,
         { provide: SitesService, useClass: MockSitesService },
         { provide: APP_INITIALIZER, useFactory: (configurationService: ConfigurationService) => () => configurationService.load({
+          mocked: true,
           functionUrl: this.properties.functionUrl,
           functionKey: this.properties.functionKey,
           description: this.properties.description,
@@ -57,15 +58,14 @@ export default class AngularComponentWebPart extends BaseAngularWebPart<IAngular
         ConfigurationService,
         { provide: SitesService, useClass: SitesService },
         { provide: APP_INITIALIZER, useFactory: (configurationService: ConfigurationService) => () => configurationService.load({
+          mocked: false,
           functionUrl: this.properties.functionUrl,
           functionKey: this.properties.functionKey,
           description: this.properties.description,
           styles: styles
         }), deps: [ConfigurationService], multi: true }
       ];
-    }
-
-    
+    }    
   }
 
   protected get routes(): any {

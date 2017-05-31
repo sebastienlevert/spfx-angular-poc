@@ -3,12 +3,14 @@ import { IApplicationConfigurationProps } from './IApplicationConfigurationProps
 
 @Injectable()
 export class ConfigurationService {
+  public mocked: boolean = false;
   public functionUrl: string = "";
   public functionKey: string = "";
   public description: string = "";
   public styles: any = null;
 
   public load(data: IApplicationConfigurationProps) {
+    this.mocked = data.mocked;
     this.functionUrl = data.functionUrl ? data.functionUrl : "";
     this.functionKey = data.functionKey ? data.functionKey : "";
     this.description = data.description ? data.description : "";
@@ -16,6 +18,6 @@ export class ConfigurationService {
   }
 
   public isConfigured() : boolean {
-    return !(this.functionKey == "" || this.functionUrl == "");
+    return !(this.functionKey == "" || this.functionUrl == "") || this.mocked;
   }
 }
